@@ -42,7 +42,7 @@ function App() {
     <DataContext.Provider value={{ pokeData }}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/Poke-API" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </DataContext.Provider>
