@@ -9,18 +9,12 @@ function App() {
 
   const [pokeData, setPokeData] = useState([]);
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/?limit=21")
-  const [loading, setLoading] = useState();
-  const [nextUrl, setNextUrl] = useState();
-  const [prevUrl, setPrevUrl] = useState();
+  const [pokemon, setPokemon] = useState()
+  const [renderizar, setRenderizar] = useState(false)
 
   const getApi = async () => {
-    setLoading(true)
     const res = await axios.get(url)
     getPokemon(res.data.results)
-
-    res.data.next ? setNextUrl(res.data.next) : setNextUrl(null)
-    res.data.previous ? setPrevUrl(res.data.previous) : setPrevUrl(null)
-    console.log(res.data)
   }
 
   const getPokemon = async (e) => {
@@ -30,7 +24,6 @@ function App() {
         e = [...e, result.data]
         return e
       })
-      setLoading(false)
     })
   }
 
@@ -39,10 +32,10 @@ function App() {
   }, [url])
 
   return (
-    <DataContext.Provider value={{ pokeData }}>
+    <DataContext.Provider value={{ pokeData, setPokemon, pokemon, renderizar, setRenderizar }}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </DataContext.Provider>
